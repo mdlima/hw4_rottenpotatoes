@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :movie do
     title         'A Fake Title' # default values
     rating        'PG'
-    release_date  { 10.years.ago }
+    release_date  { 10.days.ago }
   	description   "Movie Description"
   	director      "Director"
   end

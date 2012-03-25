@@ -22,7 +22,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rspec-rails'
-  gem 'simplecov'
+  gem 'simplecov', :require => false
   gem 'autotest', "4.4.6"
   gem "autotest-rails-pure", "4.1.2"
   gem "autotest-fsevent", "0.2.8"

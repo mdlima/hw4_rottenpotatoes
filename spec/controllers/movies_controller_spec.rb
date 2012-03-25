@@ -134,4 +134,81 @@ describe MoviesController do
 	 end
   end
 
+  describe "DELETE 'destroy'" do
+
+   before(:each) do
+     @movie = create :movie
+   end
+
+   it "should destroy the movie" do
+     lambda do
+       delete :destroy, :id => @movie
+     end.should change(Movie, :count).by(-1)
+   end
+
+   it "should redirect to the movies page" do
+     delete :destroy, :id => @movie
+     response.should redirect_to(movies_path)
+   end
+
+  end
+
+  describe "sorting movies" do
+    
+    before :each do
+      create :movie
+      create :movie, :title => "AAA", :release_date => 10.months.ago
+    end
+    
+    it "should sort movies by title" do
+      session[:ratings] = Hash[Movie.all_ratings.map {|r| [r,"1"]}]
+      session[:sort] = 'title'
+      get :index, :ratings => session[:ratings], :sort => session[:sort]
+			response.should be_success
+    end
+    
+    it "should sort movies by release date" do
+      session[:ratings] = Hash[Movie.all_ratings.map {|r| [r,"1"]}]
+      session[:sort] = 'release_date'
+      get :index, :ratings => session[:ratings], :sort => session[:sort]
+			response.should be_success
+    end
+    
+    it "should keep sorting by title when navigating to index" do
+      session[:ratings] = Hash[Movie.all_ratings.map {|r| [r,"1"]}]
+      session[:sort] = 'title'
+      get :index
+      response.code.should == "302"
+      response.should redirect_to :ratings => session[:ratings], :sort => session[:sort]
+    end
+    
+    it "should keep sorting by release when navigating to index" do
+      session[:ratings] = Hash[Movie.all_ratings.map {|r| [r,"1"]}]
+      session[:sort] = 'release_date'
+      get :index
+      response.code.should == "302"
+      response.should redirect_to :ratings => session[:ratings], :sort => session[:sort]
+    end
+    
+    
+    it "should keep ratings filter when navigating to index" do
+      session[:ratings] = Hash[Movie.all_ratings.map {|r| [r,"1"]}]
+      session[:sort] = 'release_date'
+      get :index, :sort => session[:sort]
+      response.code.should == "302"
+      response.should redirect_to :ratings => session[:ratings], :sort => session[:sort]
+    end
+  end
+
+  describe "finding related movies" do
+    
+    before :each do
+      @movie = create :movie
+      @related_movie = create :movie, :title => "Related Movie", :director => @movie.director
+    end
+    
+    it "should find movies with same director"
+      # get :find_with_same_director, @movie
+      
+  end
 end
