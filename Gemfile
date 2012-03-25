@@ -16,7 +16,7 @@ group :test do
   gem 'sqlite3'
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'cucumber', '1.1.9'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
@@ -27,6 +27,7 @@ group :test do
   gem "autotest-rails-pure", "4.1.2"
   gem "autotest-fsevent", "0.2.8"
   gem "autotest-growl", "0.2.16"
+  gem 'factory_girl_rails'
 end
 group :production do
   gem 'pg'
