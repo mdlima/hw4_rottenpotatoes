@@ -53,4 +53,3 @@ Then /the director of "(.*)" should be "(.*)"/ do |title, director|
   assert Movie.find_by_title(title).director == director, "Director not altered"
   step %Q{I should see "#{title}"}
 end
-

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe MoviesController do
+  render_views
   
 	describe "GET 'index'" do
 
@@ -38,31 +39,31 @@ describe MoviesController do
 			response.should be_success
 		end
 		
-    # it "should have a title field" do
-    #   get :new
-    #   response.should have_selector("input[name='movie[title]'][type='text']")
-    # end
-    # 
-    # it "should have a rating field" do
-    #   get :new
-    #   response.should have_selector("input[name='movie[rating]'][type='select']")
-    # end
-    # 
-    # it "should have a description field" do
-    #   get :new
-    #   response.should have_selector("input[name='movie[description]'][type='text']")
-    # end
-    # 
-    # it "should have a release date field" do
-    #   get :new
-    #   response.should have_selector("input[name='movie[release_date]'][type='text']")
-    # end
-    # 
-    # it "should have a director field" do
-    #   get :new
-    #   response.should have_selector("input[name='movie[director]'][type='text']")
-    # end
-	end  
+  #     it "should have a title field" do
+  #       get :new
+  #       response.body.should have_selector("input[name='movie[title]'][type='text']")
+  #     end
+  #     
+  #     it "should have a rating field" do
+  #       get :new
+  #       response.body.should have_selector("input[name='movie[rating]'][type='select']")
+  #     end
+  #     
+  #     it "should have a description field" do
+  #       get :new
+  #       response.body.should have_selector("input[name='movie[description]'][type='text']")
+  #     end
+  #     
+  #     it "should have a release date field" do
+  #       get :new
+  #       response.body.should have_selector("input[name='movie[release_date]'][type='text']")
+  #     end
+  #     
+  #     it "should have a director field" do
+  #       get :new
+  #       response.body.should have_selector("input[name='movie[director]'][type='text']")
+  #     end
+  end  
 
   describe "POST 'create'" do
 
@@ -207,8 +208,16 @@ describe MoviesController do
       @related_movie = create :movie, :title => "Related Movie", :director => @movie.director
     end
     
-    it "should find movies with same director"
-      # get :find_with_same_director, @movie
-      
+    it "should find movies with same director" do
+      get :find_with_same_director, :id => @movie
+      response.body.should have_content @related_movie.title
+    end
+    
+    it "should show a message for a movie with no director" do
+      @other_movie = create :movie, :title => "Other Movie", :director => ""
+      get :find_with_same_director, :id => @other_movie
+      response.code.should == "302"
+      response.should redirect_to root_path
+    end
   end
 end
