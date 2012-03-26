@@ -15,7 +15,7 @@ end
 group :test do
   gem 'sqlite3'
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'cucumber', '1.1.9'
+  gem 'cucumber', '1.1.8'
   gem 'cucumber-rails', require: false
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
