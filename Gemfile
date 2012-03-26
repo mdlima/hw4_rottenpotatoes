@@ -11,17 +11,15 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'rspec-rails'
 end
 group :test do
-  gem 'sqlite3'
-  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'cucumber', '1.1.8'
   gem 'cucumber-rails', require: false
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
-  gem 'rspec-rails'
   gem 'simplecov', :require => false
   gem 'autotest', "4.4.6"
   gem "autotest-rails-pure", "4.1.2"
