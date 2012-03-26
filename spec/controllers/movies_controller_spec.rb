@@ -217,7 +217,7 @@ describe MoviesController do
       @other_movie = create :movie, :title => "Other Movie", :director => nil
       get :find_with_same_director, :id => @other_movie
       response.code.should == "302"
-      response.should redirect_to root_path
+      response.should redirect_to movies_path
     end
   end
 end
