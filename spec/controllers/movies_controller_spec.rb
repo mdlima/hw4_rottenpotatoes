@@ -214,7 +214,7 @@ describe MoviesController do
     end
     
     it "should show a message for a movie with no director" do
-      @other_movie = create :movie, :title => "Other Movie", :director => ""
+      @other_movie = create :movie, :title => "Other Movie", :director => nil
       get :find_with_same_director, :id => @other_movie
       response.code.should == "302"
       response.should redirect_to root_path
